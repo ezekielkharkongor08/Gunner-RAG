@@ -39,9 +39,10 @@ from typing import Sequence
 
 from langchain_core.documents import Document
 from langchain_ollama import ChatOllama
+from sqlalchemy import text
 
 from src.config import settings
-from src.ingestion.index_builder import get_embeddings, get_vector_store
+from src.ingestion.index_builder import get_embeddings, get_engine, get_vector_store
 
 logger = logging.getLogger(__name__)
 
@@ -212,6 +213,66 @@ def retrieve(
 
     logger.info("Retrieved %d chunk(s) for question: %r", len(top), question)
     return top
+
+
+def retrieve_by_title(title: str, k: int | None = None) -> list[RetrievedChunk]:
+    """Retrieve all chunks for a given article title directly from pgvector.
+
+    Unlike :func:`retrieve`, this does not use similarity search or apply a
+    score threshold.  It fetches every stored chunk whose metadata ``title``
+    matches, ordered by section path and chunk index.  This is used by the
+    two-step retrieve-then-summarize flow so the summarizer sees the full
+    article context.
+
+    Args:
+        title: The Wikipedia article title to match.
+        k: Maximum number of chunks to return.  Defaults to RERANK_TOP_N.
+
+    Returns:
+        List of RetrievedChunk for the article, sorted by section and chunk
+        index.
+    """
+    if k is None:
+        k = settings.retrieval.rerank_top_n
+
+    sql = text(
+        """
+        SELECT e.id, e.document, e.cmetadata, e.embedding
+        FROM langchain_pg_embedding e
+        JOIN langchain_pg_collection c ON c.uuid = e.collection_id
+        WHERE c.name = :collection
+          AND e.cmetadata->>'title' = :title
+        ORDER BY e.cmetadata->>'section_path', (e.cmetadata->>'chunk_index')::int
+        LIMIT :limit
+        """
+    )
+    with get_engine().connect() as conn:
+        rows = conn.execute(
+            sql,
+            {
+                "collection": settings.database.collection,
+                "title": title,
+                "limit": k,
+            },
+        ).mappings().all()
+
+    chunks: list[RetrievedChunk] = []
+    for row in rows:
+        md = row["cmetadata"] if isinstance(row["cmetadata"], dict) else {}
+        chunks.append(
+            RetrievedChunk(
+                chunk_id=str(md.get("chunk_id", "")),
+                title=str(md.get("title", "")),
+                section=str(md.get("section", "")),
+                url=str(md.get("url", "")),
+                content_type=str(md.get("content_type", "")),
+                text=str(row["document"]),
+                score=float(md.get("score", 0.0)) if md.get("score") is not None else 0.0,
+            )
+        )
+
+    logger.info("Retrieved %d chunk(s) for title: %r", len(chunks), title)
+    return chunks
 
 
 def _doc_to_chunk(doc: Document, score: float) -> RetrievedChunk:

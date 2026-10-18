@@ -1,8 +1,9 @@
-"""Smoke check and chat entry point for Arsenal Weki RAG.
+"""Smoke check, chat, and summarize entry point for Arsenal Weki RAG.
 
-Run:  python main.py                      # settings, PostgreSQL, Ollama smoke check
-      python main.py --chat               # interactive Q&A over ingested Wikipedia articles
-      python main.py --chat "Your question here"   # single question, then exit
+Run:  python main.py                                          # settings, PostgreSQL, Ollama smoke check
+      python main.py --chat                                   # interactive Q&A over ingested articles
+      python main.py --chat "Your question here"              # single question, then exit
+      python main.py --summarize "Article Title"              # two-step retrieve-then-summarize an article
 """
 
 from __future__ import annotations
@@ -12,7 +13,7 @@ import sys
 from typing import Optional
 
 from src.config import ConfigError, settings
-from src.generation.answer_chain import answer_question
+from src.generation.answer_chain import answer_question, summarize_article
 
 
 def check_database() -> str:
@@ -76,6 +77,19 @@ def chat_once(question: str, history: Optional[list[str]] = None) -> None:
     print(f"\nAnswer:\n{result.answer}")
     if result.sources:
         print("\nSources:")
+        for i, src in enumerate(result.sources, 1):
+            print(f"  [{i}] {src.citation()}")
+    else:
+        print("\nNo sources found.")
+
+
+def summarize_once(title: str) -> None:
+    """Summarize a Wikipedia article using two-step retrieve-then-summarize."""
+    result = summarize_article(title)
+    print(f"\nArticle: {title}")
+    print(f"\nSummary:\n{result.answer}")
+    if result.sources:
+        print(f"\nSources ({len(result.sources)} chunk(s)):")
         for i, src in enumerate(result.sources, 1):
             print(f"  [{i}] {src.citation()}")
     else:
@@ -151,6 +165,23 @@ def main() -> int:
             chat_once(single_question)
         else:
             chat_loop()
+        return 0
+
+    # --- Summarize mode --------------------------------------------------
+    if "--summarize" in sys.argv:
+        args = sys.argv[1:]
+        if "--summarize" in args:
+            idx = args.index("--summarize")
+            if idx + 1 < len(args) and not args[idx + 1].startswith("--"):
+                title = args[idx + 1]
+            else:
+                print("ERROR: --summarize requires an article title.", file=sys.stderr)
+                return 1
+        else:
+            print("ERROR: --summarize requires an article title.", file=sys.stderr)
+            return 1
+
+        summarize_once(title)
         return 0
 
     return 0
