@@ -1,0 +1,27 @@
+# --- LangChain core ---
+langchain
+langchain-core
+langchain-community          # WikipediaLoader lives here
+langchain-text-splitters     # RecursiveCharacterTextSplitter for chunking
+
+# --- Wikipedia fetching (Mode B) ---
+Wikipedia-API               # primary fetcher: page.exists(), page.url, page.fulltext
+wikipedia                   # backend required by langchain's WikipediaLoader
+
+# --- LLM + embeddings (local, via Ollama) ---
+langchain-ollama             # ChatOllama (llama3.1:8b) + OllamaEmbeddings (nomic-embed-text:v1.5)
+
+# --- Vector store: PostgreSQL + pgvector ---
+langchain-postgres           # PGVector store
+psycopg[binary]              # PostgreSQL driver used by langchain-postgres
+sqlalchemy                   # direct DB access (engine, extension check, index status)
+
+# --- Data handling ---
+pandas                       # CSV tables in data/raw
+python-frontmatter           # optional: parse frontmatter/metadata in .md files
+
+# --- Config / helpers ---
+python-dotenv                # load .env (DB connection string, model names)
+pyyaml                       # config/settings.yaml
+tqdm                         # progress bars during ingestion
+requests                     # direct Wikipedia API calls if needed

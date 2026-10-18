@@ -1,0 +1,165 @@
+Arsenal Weki Ingestion Test
+Run started: 2026-10-17T22:20:23.493398+00:00
+Embedding model: dengcao/Qwen3-Embedding-0.6B:Q8_0
+Chunk size: 1000, overlap: 150
+Wikipedia pages: 17
+============================================================
+STAGE 1-3: load -> clean -> split
+============================================================
+Documents loaded: 24
+  local: 24, wikipedia: 0
+Documents after cleaning: 24
+Chunks after splitting: 214
+Chunks per content_type: {'table': 27, 'prose': 187}
+
+============================================================
+Check 1: Counts (loaded / cleaned / chunks)
+============================================================
+  Loaded: 24 (local=24, wikipedia=0)
+  Cleaned: 24
+  Chunks: 214
+  Per content_type: {'table': 27, 'prose': 187}
+PASS: counts -- loaded=24 cleaned=24 chunks=214
+
+------------------------------------------------------------
+Check 2: Chunk size
+------------------------------------------------------------
+  min=156  max=3885  avg=852  count=214
+PASS: chunk_size_empty -- No empty chunks.
+WARN: chunk_size_warn -- Largest chunk (3885) exceeds CHUNK_MAX_WARN=1000.
+PASS: chunk_size_stats -- min=156 max=3885 avg=852
+
+------------------------------------------------------------
+Check 3: Junk sections removed
+------------------------------------------------------------
+PASS: junk_sections -- No junk sections in any chunk.
+
+------------------------------------------------------------
+Check 4: Noise removed (no [[, ]], citation markers like [12])
+------------------------------------------------------------
+PASS: noise -- No wiki markup or citation markers in any chunk.
+
+------------------------------------------------------------
+Check 5: Required metadata fields
+------------------------------------------------------------
+PASS: metadata -- All 7 fields present on every chunk.
+
+------------------------------------------------------------
+Check 6: Every prose chunk starts with breadcrumb line
+------------------------------------------------------------
+PASS: breadcrumb -- All 187 prose chunks start with breadcrumb.
+
+------------------------------------------------------------
+Check 7: All stable chunk IDs are unique
+------------------------------------------------------------
+PASS: unique_ids -- All 214 chunk IDs are unique.
+
+------------------------------------------------------------
+Check 8: CSV chunks
+------------------------------------------------------------
+PASS: csv_start_columns -- All 27 CSV chunks start with title and have Columns: line.
+PASS: csv_no_split_rows -- Row lines preserved across chunks for all 19 table(s).
+  Summary chunks found: 0
+PASS: csv_summary -- No SUMMARY_COLUMNS configured (summary chunk optional).
+  Note: cleaner removes [a] footnote markers from CSV values too (cleaner not changed for CSV per task rules).
+
+------------------------------------------------------------
+Check 9: Deduplication (loading same file twice)
+------------------------------------------------------------
+  Loaded 48 raw docs (2x files), cleaned to 24
+PASS: dedup -- Duplicate files removed by cleaner.
+
+------------------------------------------------------------
+Check 10: Unit tests (fake input)
+------------------------------------------------------------
+PASS: unit_section_split -- Found sections: ['History', 'Wenger era', 'References']
+PASS: unit_junk_section -- Junk section detection works.
+PASS: unit_short_fold -- 3 pieces -> 2 chunks, short folded.
+PASS: unit_csv_row_group -- 3 rows, 2 per chunk -> 2 chunks.
+PASS: unit_summary_chunk -- Summary chunk has top value (25).
+PASS: unit_prefix_wrapper -- Prefixes added correctly.
+
+============================================================
+SAMPLE CHUNKS (for owner review)
+============================================================
+
+--- Prose sample 1: season review#65 ---
+season review
+
+Arsenal succeeded this setback with a North London Derby away against Tottenham Hotspur on 22 February. Arteta opted for two attacking changes from the Wolves draw four days prior, with Eze and Trossard coming in for Ødegaard and Madueke. The Gunners began the game with intent, with both Saliba and Gyökeres squandering great chances. But they soon had a deserved lead as Saka squeezed past Djed Spence on the byline, firing a dangerous ball near the six-yard box which was converted by Eze. Tottenham responded quickly with Randal Kolo Muani pouncing on a complacent Rice and beating Raya on 34 minutes. The second half began with communication problems involving match officials, but it was Gyökeres who caused the biggest problems for the hosts once the interval got underway. The Swede took a touch from Timber's early cross before tucking an outstanding finish home to beat a flailing Guglielmo Vicario
+
+--- Prose sample 2: arsenal club history#11 ---
+arsenal club history
+
+Arsenal tentatively appointed club physiotherapist Bertie Mee as acting manager in 1966 to incredulity by fans, sportsmedia press. [ 56 ] [ 57 ] With new assistant Don Howe and new players such as Bob McNab and George Graham , Mee led Arsenal to their first League Cup finals, in 1967–68 and 1968–69 . Next season saw a breakthrough, with Arsenal's first competitive European trophy, the 1969–70 Inter-Cities Fairs Cup . The season after , Arsenal achieved an even greater triumph with their first League and FA Cup double , and a new champions of England record . [ 58 ] This marked a premature high point of the decade; the Double-winning side was soon broken up and the rest of the decade was characterised by a series of near misses, with Arsenal finishing as FA Cup runners up in 1972 , and First Division runners-up in 1972–73 . [ 57 ]
+
+--- Prose sample 3: arsenal 2025 26 facts#6 ---
+arsenal 2025 26 facts
+
+### MARCH ###
+
+During our win over Mansfield Town, Jaden Dixon became our 14th debutant for the campaign. Only in 1919/20 have we had more players make their debut (15).
+
+Max Dowman became the youngest player to score a Premier League goal when he netted against Everton aged 16 years and 73 days, and the youngest scorer in our history.
+
+Eberechi Eze became just the second English player to score for us in the Premier League, League Cup, FA Cup and Champions League in the same season, after Theo Walcott in 2012/13.
+
+Our win over Chelsea was the ninth time in the Premier League in 25/26 that we have scored a match-winning goal from a corner, now the outright most by a team in a single campaign (overtaking Manchester United’s eight in 2012/13).
+
+### APRIL ###
+
+Since the start of the 2022/23 season, Eberechi Eze has scored more goals from outside the box than any other player in the Premier League (10), with his latest coming in the 1-0 win over Newcastle United.
+
+--- Prose sample 4: arsenal club history#53 ---
+arsenal club history
+
+Arsenal's financial results for the 2019–20 season showed an after tax loss of £47.8m, due in part to the impact of the COVID-19 pandemic . [ 200 ] The Deloitte Football Money League is a publication that homogenises and compares clubs' annual revenue. Deloitte put Arsenal's footballing revenue in 2019 at £392.7m (€445.6m), [ 201 ] ranking Arsenal eleventh among world football clubs. [ 202 ] Arsenal and Deloitte both listed the match day revenue generated in 2019 by the Emirates Stadium as €109.2m (£96.2m). [ 201 ]
+
+--- Prose sample 5: arsenal club history#45 ---
+arsenal club history
+
+There have always been Arsenal supporters outside London, and since the advent of satellite television, a supporter's attachment to a football club has become less dependent on geography. Consequently, Arsenal have a significant number of fans from beyond London and all over the world; in 2007, 24 UK, 37 Irish and 49 other overseas supporters' clubs were affiliated with the club. [ 160 ] A 2011 report by SPORT+MARKT estimated Arsenal's global fanbase at 113 million. [ 161 ] The club is especially popular in Africa, owing to many of its players, past and present, such as those from the Wenger era, coming from Africa or being descendants from west Africa and the Caribbean. [ 162 ] As a homage to this support, the 2024–25 alternative away kit used black, red and green to refer to the pan-African flag . [ 163 ] In 2025 the club's social media activity was the fifth-highest among English football clubs. [ 164 ]
+
+--- CSV sample 1: Disciplinary record#2 ---
+Disciplinary record
+2025–26 Arsenal F.C. season
+Columns: Rk., No., Pos., Player, Premier League, Premier League, Premier League, FA Cup, FA Cup, FA Cup, EFL Cup, EFL Cup, EFL Cup, Champions League, Champions League, Champions League, Total, Total, Total, Ref.
+
+- Rk.: Total, No.: Total, Pos.: Total, Player: Total, Premier League: 51, Premier League: 0, Premier League: 0, FA Cup: 7, FA Cup: 0, FA Cup: 0, EFL Cup: 8, EFL Cup: 0, EFL Cup: 0, Champions League: 26, Champions League: 0, Champions League: 0, Total: 92, Total: 0, Total: 0
+
+--- CSV sample 2: Arsenal Player of the Month#0 ---
+Arsenal Player of the Month
+2025–26 Arsenal F.C. season
+Columns: Month, Pos., Player, Pld, G, A, CS, Votes, Ref.
+
+- Month: August 2025, Pos.: DF, Player: Riccardo Calafiori, Pld: 3, G: 1, A: 2, CS: 2, Votes: 52%, Ref.:
+- Month: September 2025, Pos.: FW, Player: Gabriel Martinelli, Pld: 5, G: 2, A: 1, CS: –, Votes: 54%, Ref.:
+- Month: October 2025, Pos.: DF, Player: Gabriel Magalhães, Pld: 6, G: 1, A: 2, CS: 6, Votes: 45%, Ref.:
+- Month: November 2025, Pos.: MF, Player: Eberechi Eze*, Pld: 6, G: 3, A: 1, CS: –, Votes: 35%, Ref.:
+- Month: December 2025, Pos.: FW, Player: Leandro Trossard, Pld: 6, G: 2, A: 1, CS: –, Votes: 40%, Ref.:
+- Month: January 2026, Pos.: FW, Player: Viktor Gyökeres*, Pld: 8, G: 4, A: 2, CS: –, Votes: 48%, Ref.:
+- Month: February 2026, Pos.: DF, Player: Piero Hincapié*, Pld: 5, G: 1, A: 1, CS: 2, Votes: 65%, Ref.:
+- Month: March 2026, Pos.: MF, Player: Eberechi Eze*, Pld: 6, G: 2, A: 0, CS: –, Votes: 37%, Ref.:
+- Month: April 2026, Pos.: DF, Player: Piero Hincapié*, Pld: 5, G: 0, A: 0, CS: 2, Votes: 60%, Ref.:
+- Month: May 2026, Pos.: GK, Player: David Raya, Pld: 5, G: 0, A: 0, CS: 4, Ref.:
+
+--- CSV sample 3: Released#1 ---
+Released
+2025–26 Arsenal F.C. season
+Columns: Date, No., Pos., Player, Subsequent club, Join date, Notes, Ref.
+
+- Date: 30 Jun 2025, No.: 56, Pos.: MF, Player: Salah-Eddine Oulad M'Hand, Subsequent club: Riga FC (Virslīga), Join date: 29 Jan 2026, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 57, Pos.: MF, Player: Ismail Oulad M'Hand, Subsequent club: Željezničar Sarajevo (Premier League), Join date: 23 Oct 2025, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 59, Pos.: DF, Player: Elián Quesada-Thorn, Subsequent club: Liga Deportiva Alajuelense (Liga Promérica), Join date: 19 Jul 2025, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 63, Pos.: MF, Player: Michał Rosiak, Subsequent club: Śląsk Wrocław (I liga), Join date: 3 Sep 2025, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 71, Pos.: FW, Player: Jakai Fisher, Subsequent club: Haringey Borough (Spartan South Midlands Premier Division), Join date: 16 Jan 2026, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 73, Pos.: FW, Player: Reece Clairmont, Subsequent club: Stanway Rovers (Isthmian North Division), Join date: Oct 2025, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 78, Pos.: DF, Player: Max Kuczynski, Subsequent club: Charlton Athletic (Professional Development League), Join date: 6 Aug 2025, Notes: End of contract, Ref.:
+- Date: 30 Jun 2025, No.: 80, Pos.: MF, Player: Zacariah Shuaib, Subsequent club: Real Sociedad (La Liga), Join date: 15 Jul 2025, Notes: End of contract, Ref.:
+
+============================================================
+SUMMARY
+============================================================
+  PASS checks: many (see above)
+  FAIL checks: 0
+  WARN checks: 1

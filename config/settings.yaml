@@ -1,0 +1,39 @@
+# Non-secret pipeline configuration.
+# Secrets, hostnames, model names and tunable numbers live in .env (see
+# .env.example) and are read by src/config.py -- this file must NOT duplicate them.
+
+# Wikipedia page titles to fetch in ingestion Mode B.
+# `lang: <WIKIPEDIA_LANG>` is applied from .env.
+pages:
+  - "Arsenal F.C."
+  - "History of Arsenal F.C."
+  - "2025-26 Arsenal F.C. season"
+  - "List of Arsenal F.C. records and statistics"
+  - "List of Arsenal F.C. managers"
+  - "List of Arsenal F.C. seasons"
+  - "History of Arsenal F.C. (1886–1966)"
+  - "History of Arsenal F.C. (1966–1986)"
+  - "History of Arsenal F.C. (1986–2006)"
+  - "History of Arsenal F.C. (2006–present)"
+  - "Arsène Wenger"
+  - "Mikel Arteta"
+  - "Emirates Stadium"
+  - "Highbury"
+  - "North London derby"
+  - "Arsenal F.C. in European football"
+  - "Premier League"
+
+# Sections to drop completely during cleaning (case-insensitive).
+junk_sections:
+  - References
+  - External links
+  - See also
+  - Further reading
+  - Notes
+  - Sources
+  - Bibliography
+
+# Local folders scanned in ingestion Mode A.
+data_dirs:
+  raw: data/raw
+  processed: data/processed

@@ -1,0 +1,16 @@
+[project]
+name = "arsenal-weki"
+version = "0.1.0"
+description = "RAG over Arsenal F.C. Wikipedia content with LangChain, Ollama and pgvector"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+# Installed with:  uv pip install -e .
+# This is what makes `from src.config import settings` work from ANY folder.
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
