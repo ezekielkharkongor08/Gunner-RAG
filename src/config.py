@@ -1,20 +1,21 @@
 """Central configuration for the whole project.
 
-Every runtime value (database instance, LLM, embeddings, chunking, retrieval)
-comes from environment variables loaded out of a ``.env`` file at the project
-root.  Nothing in the codebase hard-codes a database, model or embedding
-name -- change them in ``.env`` instead.
+Every runtime value (database instance, LLM, embeddings, chunking, retrieval,
+Wikipedia API) comes from environment variables loaded out of a ``.env`` file
+at the project root, plus non-secret pipeline config from
+``config/settings.yaml``. Nothing in the codebase hard-codes a database, model
+or embedding name -- change them in ``.env`` instead.
 
-Usage:
-    from src.config import settings
-    print(settings.database.url, settings.ollama.chat_model)
+The pipeline is Wikipedia-only and prose-only: there is no local-file
+ingestion and no table processing.
 """
 
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Optional
 from urllib.parse import quote_plus
 
 import yaml
@@ -106,12 +107,18 @@ class OllamaSettings:
 
 @dataclass(frozen=True)
 class WikipediaSettings:
-    """Wikipedia fetch behaviour for ingestion Mode B."""
+    """Wikipedia fetch behaviour for the MediaWiki Action API.
+
+    The API endpoint is configurable through ``WIKIPEDIA_API_URL``; when unset
+    it defaults to ``https://{lang}.wikipedia.org/w/api.php`` so any language
+    edition can be targeted.
+    """
 
     lang: str
     user_agent: str
-    load_max_docs: int
-    max_chars: int
+    api_url: Optional[str]
+    timeout: int
+    max_retries: int
 
 
 @dataclass(frozen=True)
@@ -145,11 +152,7 @@ class Settings:
 
     # From config/settings.yaml (non-secret pipeline config)
     pages: tuple[str, ...] = ()
-    data_raw_dir: Path = PROJECT_ROOT / "data" / "raw"
-    data_processed_dir: Path = PROJECT_ROOT / "data" / "processed"
     junk_sections: tuple[str, ...] = ()
-    csv_rows_per_chunk: int = 12
-    csv_row_style: str = "pairs"
 
     # Convenience
     project_root: Path = PROJECT_ROOT
@@ -173,15 +176,16 @@ class Settings:
                 "embedding_doc_prefix": self.ollama.embedding_doc_prefix,
                 "embedding_query_prefix": self.ollama.embedding_query_prefix,
             },
-            "wikipedia": self.wikipedia.__dict__,
+            "wikipedia": {
+                "lang": self.wikipedia.lang,
+                "api_url": self.wikipedia.api_url,
+                "timeout": self.wikipedia.timeout,
+                "max_retries": self.wikipedia.max_retries,
+            },
             "chunk": self.chunk.__dict__,
             "retrieval": self.retrieval.__dict__,
             "pages": list(self.pages),
-            "data_raw_dir": str(self.data_raw_dir),
-            "data_processed_dir": str(self.data_processed_dir),
             "junk_sections": list(self.junk_sections),
-            "csv_rows_per_chunk": self.csv_rows_per_chunk,
-            "csv_row_style": self.csv_row_style,
         }
 
 
@@ -228,12 +232,13 @@ def load_settings() -> Settings:
         embedding_query_prefix=get_env("EMBEDDING_QUERY_PREFIX", ""),
     )
 
-    # --- Wikipedia ---
+    # --- Wikipedia (MediaWiki Action API) ---
     wikipedia = WikipediaSettings(
         lang=get_env("WIKIPEDIA_LANG", "en"),
         user_agent=get_env("WIKIPEDIA_USER_AGENT", "arsenal-weki-rag/0.1"),
-        load_max_docs=get_int("WIKIPEDIA_LOAD_MAX_DOCS", 2),
-        max_chars=get_int("WIKIPEDIA_MAX_CHARS", 200_000),
+        api_url=get_env("WIKIPEDIA_API_URL"),
+        timeout=get_int("WIKIPEDIA_TIMEOUT", 30),
+        max_retries=get_int("WIKIPEDIA_MAX_RETRIES", 3),
     )
 
     # --- Chunking / retrieval ---
@@ -253,17 +258,9 @@ def load_settings() -> Settings:
 
     # --- Non-secret pipeline config ---
     yaml_cfg = _load_yaml()
-    raw_rel = yaml_cfg.get("data_dirs", {}).get("raw", "data/raw")
-    processed_rel = yaml_cfg.get("data_dirs", {}).get("processed", "data/processed")
     pages = tuple(str(p) for p in (yaml_cfg.get("pages") or []))
     junk_sections = tuple(
         str(s) for s in (yaml_cfg.get("junk_sections") or [])
-    )
-    csv_rows_per_chunk = int(
-        yaml_cfg.get("csv_rows_per_chunk", 12) or 12
-    )
-    csv_row_style = str(
-        yaml_cfg.get("csv_row_style", "pairs") or "pairs"
     )
 
     return Settings(
@@ -273,11 +270,7 @@ def load_settings() -> Settings:
         chunk=chunk,
         retrieval=retrieval,
         pages=pages,
-        data_raw_dir=PROJECT_ROOT / raw_rel,
-        data_processed_dir=PROJECT_ROOT / processed_rel,
         junk_sections=junk_sections,
-        csv_rows_per_chunk=csv_rows_per_chunk,
-        csv_row_style=csv_row_style,
     )
 
 

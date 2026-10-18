@@ -1,4 +1,4 @@
-"""retriever.py -- retrieval stage for Arsenal Weki RAG.
+"""retriever.py -- retrieval stage for the prose-only Wikipedia RAG pipeline.
 
 Takes a user question (plus conversation history), rewrites it into several
 query variants, embeds each variant, searches pgvector, merges and
@@ -21,6 +21,11 @@ Pipeline:
     4. Merge + de-duplicate by chunk_id, keeping the best score per chunk.
     5. Filter out chunks below SCORE_THRESHOLD.
     6. Return the top RERANK_TOP_N chunks with citation metadata.
+
+Chunk metadata (from ingestion):
+
+    * title, section, section_path, url, language, content_type="prose"
+    * chunk_index, chunk_count, chunk_chars, fetched_at
 
 Run a quick smoke test:
     python -m src.retrieval.retriever "Who was Arsenal's top scorer?"
@@ -50,7 +55,7 @@ class RetrievedChunk:
     chunk_id: str
     title: str
     section: str
-    source_url: str
+    url: str
     content_type: str
     text: str
     score: float
@@ -60,8 +65,8 @@ class RetrievedChunk:
         parts = [self.title]
         if self.section:
             parts.append(f"section: {self.section}")
-        if self.source_url:
-            parts.append(f"source: {self.source_url}")
+        if self.url:
+            parts.append(f"source: {self.url}")
         return " | ".join(parts)
 
 
@@ -92,12 +97,12 @@ def rewrite_queries(question: str, history: Sequence[str] | None = None) -> list
     history_text = _format_history(history)
 
     prompt = (
-        "You are helping a search system find Arsenal F.C. documents.\n"
+        "You are helping a search system find relevant Wikipedia articles.\n"
         "Given the user's question and the conversation history, rewrite the "
         "question into exactly "
         + str(count)
         + " different search queries that would help find relevant documents.\n"
-        "Keep each query short and focused on Arsenal facts.\n"
+        "Keep each query short and focused on the facts asked about.\n"
         "Return one query per line. Do not number them. Do not add extra text.\n\n"
         "Conversation history:\n"
         + history_text
@@ -127,7 +132,7 @@ def rewrite_queries(question: str, history: Sequence[str] | None = None) -> list
     for variant in variants:
         if variant != question and variant not in queries:
             queries.append(variant)
-        if len(queries) - 1 >= count:  # we already have the original + count variants
+        if len(queries) - 1 >= count:
             break
 
     logger.info("Rewrote query into %d variant(s): %s", len(queries), queries)
@@ -216,7 +221,7 @@ def _doc_to_chunk(doc: Document, score: float) -> RetrievedChunk:
         chunk_id=str(md.get("chunk_id", "")),
         title=str(md.get("title", "")),
         section=str(md.get("section", "")),
-        source_url=str(md.get("source_url", "")),
+        url=str(md.get("url", "")),
         content_type=str(md.get("content_type", "")),
         text=doc.page_content,
         score=float(score),
@@ -231,7 +236,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
-    question = sys.argv[1] if len(sys.argv) > 1 else "Who was Arsenal's top scorer?"
+    question = sys.argv[1] if len(sys.argv) > 1 else "What is Arsenal F.C. known for?"
     chunks = retrieve(question)
 
     print(f"\nQuestion: {question}")
