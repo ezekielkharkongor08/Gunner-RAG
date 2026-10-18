@@ -48,7 +48,7 @@ logger = logging.getLogger(__name__)
 SEPARATORS = ["\n\n", "\n", ". ", " ", ""]
 
 # Chunks shorter than this are folded into the following chunk.
-MIN_CHUNK_SIZE = int(get_env("CHUNK_MIN_SIZE", "120"))
+MIN_CHUNK_SIZE = int(get_env("CHUNK_MIN_SIZE", "100"))
 
 # Log a warning if the largest chunk exceeds this many characters.
 CHUNK_MAX_WARN = int(get_env("CHUNK_MAX_WARN", "1000"))

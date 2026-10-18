@@ -11,4 +11,3 @@ wheels/
 
 # Local secrets -- never commit
 .env
-.env.example

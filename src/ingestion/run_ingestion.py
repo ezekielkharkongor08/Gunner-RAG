@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 def run_ingestion(
     titles: list[str] | None = None,
     *,
-    reset: bool = True,
+    reset: bool = False,
     batch_size: int = 32,
 ) -> dict:
     """Run the full ingestion pipeline: load -> clean -> split -> build_index.
