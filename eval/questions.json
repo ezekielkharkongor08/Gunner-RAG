@@ -1,0 +1,206 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "what is arsenal season 2025-2026 and what did they achieved",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Introduction", "keywords_all": ["crowned as Premier League champions"]},
+        {"section": "EFL Cup", "keywords_all": ["lost to Manchester City"]},
+        {"section": "Final", "keywords_all": ["4–3 on penalties"]}
+      ],
+      "notes": "Three parts: league title, EFL Cup, Champions League final."
+    },
+    {
+      "id": 2,
+      "question": "Who won the 2025–26 Premier League?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Introduction", "keywords_all": ["crowned as Premier League champions"]}
+      ]
+    },
+    {
+      "id": 3,
+      "question": "When did Arsenal clinch the 2025–26 league title?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Introduction", "keywords_all": ["19 May 2026"]}
+      ]
+    },
+    {
+      "id": 4,
+      "question": "How did Arsenal's 2025–26 Champions League campaign end?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Final", "keywords_all": ["4–3 on penalties"]}
+      ]
+    },
+    {
+      "id": 5,
+      "question": "Who did Arsenal lose to in the 2025–26 EFL Cup final?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "EFL Cup", "keywords_all": ["lost to Manchester City"]}
+      ]
+    },
+    {
+      "id": 6,
+      "question": "Who did Arsenal face in the 2025–26 Champions League round of 16?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Round of 16", "keywords_all": ["Bayer Leverkusen"]}
+      ]
+    },
+    {
+      "id": 7,
+      "question": "Which teams were in Arsenal's 2025–26 Champions League league phase draw?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "League phase", "keywords_all": ["Bayern Munich"]}
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Who scored for Arsenal in the 2025–26 Champions League final?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "May", "keywords_all": ["Kai Havertz"]}
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Who was Arsenal's first signing of summer 2025?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "First team transfers", "keywords_all": ["Kepa Arrizabalaga"]}
+      ]
+    },
+    {
+      "id": 10,
+      "question": "Who joined Arsenal on loan from Bayer Leverkusen in 2025?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "First team transfers", "keywords_all": ["season-long loan move from Bayer Leverkusen"]}
+      ]
+    },
+    {
+      "id": 11,
+      "question": "Who supplied Arsenal's kit in 2025–26?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Kit", "keywords_all": ["Adidas"]}
+      ]
+    },
+    {
+      "id": 12,
+      "question": "Who was Arsenal's sleeve sponsor in 2025–26?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Kit", "keywords_all": ["Visit Rwanda"]}
+      ]
+    },
+    {
+      "id": 13,
+      "question": "How many goals did Arsenal score in all competitions in 2025–26?",
+      "page": "2025–26 Arsenal F.C. season",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Goals", "keywords_all": ["scored 121 goals"]}
+      ]
+    },
+    {
+      "id": 14,
+      "question": "Who is Arsenal's record goalscorer?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_any_part": true,
+      "parts": [
+        {"section": "Introduction", "keywords_all": ["Thierry Henry"]},
+        {"section": "Top goalscorers", "keywords_all": ["Thierry Henry"]}
+      ]
+    },
+    {
+      "id": 15,
+      "question": "Who has made the most appearances for Arsenal?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_any_part": true,
+      "parts": [
+        {"section": "Introduction", "keywords_all": ["David O'Leary"]},
+        {"section": "Appearances", "keywords_all": ["David O'Leary"]}
+      ]
+    },
+    {
+      "id": 16,
+      "question": "What is Arsenal's record transfer fee paid?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Transfers", "keywords_all": ["Declan Rice"]}
+      ]
+    },
+    {
+      "id": 17,
+      "question": "Who is Arsenal's longest-serving manager?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Managerial records", "keywords_all": ["Wenger"]}
+      ]
+    },
+    {
+      "id": 18,
+      "question": "What was the highest attendance at the Emirates Stadium?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Attendances", "keywords_all": ["60,383"]}
+      ]
+    },
+    {
+      "id": 19,
+      "question": "When did Arsenal win their first league and cup double?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_all_parts": true,
+      "parts": [
+        {"section": "Honours and achievements", "keywords_all": ["1970–71"]}
+      ]
+    },
+    {
+      "id": 20,
+      "question": "How many FA Cups have Arsenal won?",
+      "page": "List of Arsenal F.C. records and statistics",
+      "require_any_part": true,
+      "parts": [
+        {"section": "The FA", "keywords_all": ["Winners (14)"]},
+        {"section": "Introduction", "keywords_all": ["most FA Cup wins, with 14"]}
+      ]
+    },
+    {
+      "id": 21,
+      "question": "What was Arsenal's average possession in 2025–26?",
+      "page": "2025–26 Arsenal F.C. season",
+      "negative": true,
+      "parts": [],
+      "notes": "Not in the indexed prose. The answer must say so."
+    },
+    {
+      "id": 22,
+      "question": "Who won the 2022 FIFA World Cup?",
+      "page": "",
+      "negative": true,
+      "parts": [],
+      "notes": "Not in the indexed pages. The answer must say so."
+    }
+  ]
+}

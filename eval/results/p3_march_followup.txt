@@ -1,0 +1,21 @@
+A1:
+Arsenal had a busy March, playing several matches. They started the month with a 2-1 win over Chelsea at home, with goals from Saliba and Timber [1]. They then played Brighton at the Amex Stadium on 4 March, winning 1-0 with a goal from Saka [3]. On 7 March, they traveled to Mansfield Town for the FA Cup 5th Round, winning 2-1 with goals from Madueke and Eze [4]. They also played Bayer Leverkusen in the Champions League round of 16, drawing 1-1 in the first leg [5] and winning 3-1 in the second leg [10]. On 14 March, they beat Everton 2-0 at home, with goals from Gyökeres and Dowman [7]. On 17 March, they beat Bayer Leverkusen 3-1 in the Champions League round of 16 second leg [10]. On 22 March, they lost 2-0 to Manchester City in the EFL Cup final [12].
+
+A2:
+They beat Chelsea at home, winning 2-1 [1]. They also beat Everton at home, winning 2-0 [7].
+
+SOURCES A2:
+1 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+2 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+3 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+4 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+5 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+6 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+7 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+8 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+9 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+10 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+11 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+12 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+13 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+14 March | 2025–26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00

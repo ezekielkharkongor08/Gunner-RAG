@@ -30,6 +30,7 @@ import logging
 from src.config import settings
 from src.ingestion.document_cleaner import clean_documents
 from src.ingestion.index_builder import build_index
+from src.ingestion.section_assembler import assemble_sections, summarize_report
 from src.ingestion.text_splitter import split_documents
 from src.ingestion.wikipedia_loader import fetch_wikipedia_documents
 
@@ -40,7 +41,7 @@ def run_ingestion(
     titles: list[str] | None = None,
     *,
     reset: bool = False,
-    batch_size: int = 32,
+    batch_size: int | None = None,
 ) -> dict:
     """Run the full ingestion pipeline: load -> clean -> split -> build_index.
 
@@ -69,13 +70,22 @@ def run_ingestion(
     cleaned = clean_documents(documents)
     logger.info("Stage 2 complete: %d document(s) cleaned.", len(cleaned))
 
+    # Stage 2b: assemble sections (drop boilerplate, merge short sections).
+    assembled, assembly_report = assemble_sections(cleaned)
+    logger.info("Stage 2b complete: %s", summarize_report(assembly_report))
+
     # Stage 3: split cleaned prose into chunks.
-    chunks = split_documents(cleaned)
+    chunks = split_documents(assembled)
     logger.info("Stage 3 complete: %d chunk(s) produced.", len(chunks))
 
     # Stage 4: embed + store.  Raises ValueError if there are no valid chunks,
     # so a failed ingestion is never reported as successfully indexed.
-    summary = build_index(chunks, reset=reset, batch_size=batch_size)
+    summary = build_index(
+        chunks,
+        reset=reset,
+        batch_size=batch_size or settings.chunk.batch_size,
+    )
+    summary["assembly"] = assembly_report
     logger.info("Stage 4 complete: %d chunk(s) written.", summary["written"])
 
     return summary
@@ -97,8 +107,8 @@ def main() -> int:
         help="Do not wipe the pgvector collection before inserting.",
     )
     parser.add_argument(
-        "--batch-size", type=int, default=32,
-        help="Chunks per embedding batch.",
+        "--batch-size", type=int, default=None,
+        help="Chunks per embedding batch (default: INDEX_BATCH_SIZE from .env).",
     )
     args = parser.parse_args()
 

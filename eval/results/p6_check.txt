@@ -1,0 +1,11 @@
+
+Q: who did they beat at home in March?
+
+Arsenal beat Chelsea at home in March. [1]
+
+Sources:
+  [1][2][3][4][5][6][7][8][9][10][11][12][13][14] 2025ΓÇô26 Arsenal F.C. season | section: March | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+
+Grounding check (tokens below do not appear in the sources):
+  unsupported numbers: none
+  unsupported names:   none

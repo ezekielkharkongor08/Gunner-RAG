@@ -20,6 +20,16 @@ class _FakeSummary:
         self.__dict__.update(kw)
 
 
+def _fake_assemble(docs):
+    """Pass sections through unchanged; the assembler has its own tests."""
+    return docs, {
+        "sections_in": len(docs),
+        "sections_out": len(docs),
+        "dropped": [],
+        "merged": [],
+    }
+
+
 def _fake_doc(title="Arsenal F.C.", section="History"):
     return Document(
         page_content="Some prose content.",
@@ -46,16 +56,22 @@ def test_run_ingestion_wires_stages_in_order(monkeypatch):
         calls.append(("clean", len(docs)))
         return docs
 
+    def fake_assemble(docs):
+        calls.append(("assemble", len(docs)))
+        return docs, {"sections_in": len(docs), "sections_out": len(docs),
+                      "dropped": [], "merged": []}
+
     def fake_split(docs):
         calls.append(("split", len(docs)))
         return [Document(page_content="chunk", metadata=d.metadata) for d in docs]
 
-    def fake_build(chunks, *, reset=True, batch_size=32):
+    def fake_build(chunks, *, reset=True, batch_size=None, collection=None):
         calls.append(("build", len(chunks), reset, batch_size))
         return {"chunks": len(chunks), "written": len(chunks)}
 
     monkeypatch.setattr(ri, "fetch_wikipedia_documents", fake_fetch)
     monkeypatch.setattr(ri, "clean_documents", fake_clean)
+    monkeypatch.setattr(ri, "assemble_sections", fake_assemble)
     monkeypatch.setattr(ri, "split_documents", fake_split)
     monkeypatch.setattr(ri, "build_index", fake_build)
 
@@ -65,6 +81,7 @@ def test_run_ingestion_wires_stages_in_order(monkeypatch):
     assert calls == [
         ("fetch", ["Arsenal F.C."]),
         ("clean", 1),
+        ("assemble", 1),
         ("split", 1),
         ("build", 1, True, 16),
     ]
@@ -115,6 +132,7 @@ def test_run_ingestion_no_local_file_branch(monkeypatch):
 
     monkeypatch.setattr(ri, "fetch_wikipedia_documents", fake_fetch)
     monkeypatch.setattr(ri, "clean_documents", lambda docs: docs)
+    monkeypatch.setattr(ri, "assemble_sections", _fake_assemble)
     monkeypatch.setattr(ri, "split_documents", lambda docs: docs)
     monkeypatch.setattr(ri, "build_index", lambda chunks, **kw: {"chunks": len(chunks), "written": len(chunks)})
 
@@ -129,6 +147,7 @@ def test_failed_pages_do_not_produce_empty_documents(monkeypatch):
     # them through.
     monkeypatch.setattr(ri, "fetch_wikipedia_documents", lambda titles=None: [_fake_doc()])
     monkeypatch.setattr(ri, "clean_documents", lambda docs: docs)
+    monkeypatch.setattr(ri, "assemble_sections", _fake_assemble)
     monkeypatch.setattr(ri, "split_documents", lambda docs: docs)
     monkeypatch.setattr(ri, "build_index", lambda chunks, **kw: {"chunks": len(chunks), "written": len(chunks)})
 

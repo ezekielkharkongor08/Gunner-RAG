@@ -1,0 +1,44 @@
+=== STEP 1.0 PARAGRAPH CHECK ===
+raw extract chars: 72315
+raw single newlines: 371
+raw blank-line breaks: 92
+Introduction: 912 chars | 2 paragraphs | newline-pairs = 1 | old space-join pairs = 0
+Review > May: 4547 chars | 5 paragraphs | newline-pairs = 4 | old space-join pairs = 0
+
+=== SECTION ASSEMBLY LOG ===
+Summary: sections in=97 out=74 dropped=20 merged=3
+
+Dropped:
+  [2025–26 Arsenal F.C. season] First team > First team coaching staff | 29 chars | boilerplate: ^Notes?:  | Note: Age as of 30 June 2026.
+  [2025–26 Arsenal F.C. season] First team > First team squad > Squad number changes | 51 chars | boilerplate: ^Notes?:  | Note: Squad numbers last updated on 23 August 2025.
+  [2025–26 Arsenal F.C. season] Contracts and transfers > New contracts | 93 chars | boilerplate: ^The following  | The following Arsenal players signed their first or new professional contracts with the club.
+  [2025–26 Arsenal F.C. season] Contracts and transfers > Released | 228 chars | boilerplate: ^The following  | The following players from Arsenal's first team, under-21s and under-18s squads were released by the club.  Note: Excludes players who joined Arsenal 
+  [2025–26 Arsenal F.C. season] Contracts and transfers > Transfers in | 213 chars | boilerplate: ^The following  | The following players joined Arsenal permanently and signed professional contracts with the club.  Total expenditure: £248.2 million (excluding potent
+  [2025–26 Arsenal F.C. season] Contracts and transfers > Transfers out | 195 chars | boilerplate: ^The following  | The following players departed Arsenal permanently and signed professional contracts with another club.  Total income: £14.5 million (excluding potent
+  [2025–26 Arsenal F.C. season] Contracts and transfers > Loans in | 175 chars | boilerplate: ^The following  | The following players joined Arsenal on loan and signed professional contracts with the club.  Total expenditure: £0.0 million (excluding purchase opt
+  [2025–26 Arsenal F.C. season] Contracts and transfers > Loans out | 251 chars | boilerplate: ^The following  | The following players departed Arsenal on loan and signed professional contracts with another club.  Date – Loan was originally scheduled to last to u
+  [2025–26 Arsenal F.C. season] Contracts and transfers > Overall transfer activity | 112 chars | boilerplate: ^Notes?:  | Note: All loan fees included. All potential add-ons, bonuses, undisclosed figures and future transfers excluded.
+  [2025–26 Arsenal F.C. season] Statistics > Appearances | 268 chars | boilerplate: ^The following  | The following 31 players made appearances for Arsenal's first team during the season.  Includes all competitions for senior teams. When two Arsenal pl
+  [2025–26 Arsenal F.C. season] Statistics > Goals > Hat-tricks | 171 chars | boilerplate: ^Includes all competitions for senior teams | Includes all competitions for senior teams. Players with no hat-tricks not included in the list.  Score - The score at the time of each goal. Arsenal'
+  [2025–26 Arsenal F.C. season] Statistics > Disciplinary record | 196 chars | boilerplate: ^Includes all competitions for senior teams | Includes all competitions for senior teams. The list is sorted by red cards, then yellow cards (and by squad number when total cards are equal). Playe
+  [2025–26 Arsenal F.C. season] Statistics > Clean sheets | 43 chars | boilerplate: ^Includes all competitions for senior teams | Includes all competitions for senior teams.
+  [2025–26 Arsenal F.C. season] Awards and nominations > Monthly awards > Arsenal Player of the Month | 77 chars | boilerplate: ^The winner of the award was chosen | The winner of the award was chosen via a poll on the club's official website.
+  [2025–26 Arsenal F.C. season] Awards and nominations > Monthly awards > Arsenal Goal of the Month | 131 chars | boilerplate: ^The winner of the award was chosen | The winner of the award was chosen from goals scored by men's, women's and academy teams via a poll on the club's official website.
+  [2025–26 Arsenal F.C. season] Awards and nominations > Monthly awards > Premier League Manager of the Month | 100 chars | boilerplate: ^The winner of the award was chosen | The winner of the award was chosen by a combination of an online public vote and a panel of experts.
+  [2025–26 Arsenal F.C. season] Awards and nominations > Monthly awards > Premier League Player of the Month | 142 chars | boilerplate: ^The winner of the award was chosen | The winner of the award was chosen by a combination of an online public vote, a panel of experts, and the captain of each Premier League club.
+  [2025–26 Arsenal F.C. season] Awards and nominations > Monthly awards > Premier League Goal of the Month | 174 chars | boilerplate: ^The winner of the award was chosen | The winner of the award was chosen by a combination of an online public vote and a panel of experts.  Score – The score at the time of the goal. Arsen
+  [2025–26 Arsenal F.C. season] Awards and nominations > Monthly awards > Premier League Save of the Month | 174 chars | boilerplate: ^The winner of the award was chosen | The winner of the award was chosen by a combination of an online public vote and a panel of experts.  Score – The score at the time of the save. Arsen
+  [2025–26 Arsenal F.C. season] Competitions > Premier League > Matches | 51 chars | too short (no sibling to merge) | The league fixtures were announced on 18 June 2025.
+
+Merged:
+  [List of Arsenal F.C. records and statistics] Honours and achievements > Regional honours > Kent County FA -> Honours and achievements > Regional honours > London FA | 37 chars | sibling
+  [List of Arsenal F.C. records and statistics] Player records > Appearances > Most appearances -> Player records > Appearances | 104 chars | child -> parent
+  [2025–26 Arsenal F.C. season] Kits -> Kits > Kit information | 67 chars | parent -> first child
+
+Kept sections under 150 chars:
+  0
+
+Sections per page:
+  List of Arsenal F.C. records and statistics: 21
+  2025–26 Arsenal F.C. season: 27
+  Arsenal F.C.: 26

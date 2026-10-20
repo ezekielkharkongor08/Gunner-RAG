@@ -1,0 +1,45 @@
+{
+  "description": "Section questions. Each one names a section of an indexed page, so the section router should send it straight to that section (no vector search). 'expected_section' is the stored section_path. Without routing these questions are exactly the ones the 0.70 absolute gate used to reject (November scored 0.712).",
+  "questions": [
+    {
+      "id": 101,
+      "question": "describe the things that happen in the month of November",
+      "expected_section": "Review > November"
+    },
+    {
+      "id": 102,
+      "question": "give more details about november",
+      "expected_section": "Review > November"
+    },
+    {
+      "id": 103,
+      "question": "give a brief review of March",
+      "expected_section": "Review > March"
+    },
+    {
+      "id": 104,
+      "question": "what happened in October?",
+      "expected_section": "Review > October"
+    },
+    {
+      "id": 105,
+      "question": "summarise the summer transfer window",
+      "expected_section": "Review > Pre-season > First team transfers (summer transfer window)"
+    },
+    {
+      "id": 106,
+      "question": "what kits did Arsenal wear in 2025-26?",
+      "expected_section": "Kits > Kit information"
+    },
+    {
+      "id": 107,
+      "question": "what happened in December?",
+      "expected_section": "Review > December"
+    },
+    {
+      "id": 108,
+      "question": "what happened in January?",
+      "expected_section": "Review > January"
+    }
+  ]
+}

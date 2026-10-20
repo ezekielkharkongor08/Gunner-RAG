@@ -9,7 +9,67 @@ pages:
   - "2025–26 Arsenal F.C. season"
   - "Arsenal F.C."
 
+# The season the assistant treats as current when a question does not name one.
+# Used by the answer prompt: Background sections recap the previous season, and
+# results from it must stay labelled with their own year.
+current_season: "2025–26"
+
+# How much detail a chat answer should give: short | normal | long.
+# short  = a few sentences (the old behaviour).
+# normal = one or two short paragraphs, about 4-6 sentences.
+# long   = up to three paragraphs, about 8-10 sentences.
+answer_style: normal
+
+# Section names that questions may target directly, e.g. "describe November"
+# or "what happened in the summer transfer window". Matching is exact on the
+# last segment of section_path (case/punctuation insensitive), and only when
+# exactly one section matches. Add or remove tokens here -- no code change.
+section_tokens:
+  - January
+  - February
+  - March
+  - April
+  - May
+  - June
+  - July
+  - August
+  - September
+  - October
+  - November
+  - December
+  - Pre-season
+  - Summer transfer window
+  - Winter transfer window
+  - Kits
+  - Honours
+  - Records
+  - Staff
+  - Stadium
+
+# Words that make a short question look like a follow-up ("who did they beat?").
+# Only used when history exists; a follow-up is condensed into a standalone
+# question before searching. Add or remove words here -- no code change.
+followup_pronouns:
+  - it
+  - its
+  - they
+  - them
+  - their
+  - theirs
+  - he
+  - him
+  - his
+  - she
+  - her
+  - hers
+  - that
+  - this
+  - those
+  - these
+  - there
+
 # Sections to drop completely during cleaning (case-insensitive).
+# A section is also dropped when any parent in its section_path is listed here.
 junk_sections:
   - References
   - External links
@@ -18,3 +78,45 @@ junk_sections:
   - Notes
   - Sources
   - Bibliography
+  - Independent websites
+  - Official website
+  - Official websites
+
+# Splitter separators, most preferred first. "\n\n" = paragraph break.
+split_separators:
+  - "\n\n"
+  - "\n"
+  - ". "
+  - "; "
+  - " "
+  - ""
+
+# Caption/legend sections to drop before splitting.
+# A section is dropped only if its body is shorter than max_chars AND the
+# regex matches the start of the body.
+boilerplate_patterns:
+  - pattern: '^Notes?: '
+    max_chars: 800
+  - pattern: '^Includes all competitions for senior teams'
+    max_chars: 800
+  - pattern: '^The winner of the award was chosen'
+    max_chars: 800
+  - pattern: '^The following '
+    max_chars: 300
+    # Keep the section when it holds a money amount: the transfer spend/income
+    # totals live in sections that also start with "The following ...".
+    keep_if_pattern: '[£€$]\s?\d'
+
+# page_type metadata, first matching rule wins.
+page_type_rules:
+  - pattern: 'season$'
+    type: season
+  - pattern: '^List of '
+    type: list
+  - pattern: 'F\.C\.$'
+    type: club
+  - pattern: '.*'
+    type: other
+
+# Used only on queries, never on stored text.
+season_normalise_pattern: '\b((?:19|20)\d{2})\s*[-–—/]\s*(\d{2,4})\b'

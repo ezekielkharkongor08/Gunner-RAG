@@ -24,6 +24,18 @@ from src.ingestion.wikipedia_loader import (
     _parse_sections,
 )
 
+
+@pytest.fixture(autouse=True)
+def _disable_fetch_cache(monkeypatch):
+    """Tests use fake titles that may exist in the real on-disk cache."""
+    from dataclasses import replace
+
+    patched = replace(
+        wl.settings,
+        cache=replace(wl.settings.cache, enabled=False),
+    )
+    monkeypatch.setattr(wl, "settings", patched)
+
 # ---------------------------------------------------------------------------
 # Fake HTTP response
 # ---------------------------------------------------------------------------

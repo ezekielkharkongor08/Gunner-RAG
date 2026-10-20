@@ -1,6 +1,6 @@
-# Arsenal Weki — Prose-Only Wikipedia RAG
+# Arsenal Wiki — Prose-Only Wikipedia RAG
 
-Arsenal Weki is a retrieval-augmented generation (RAG) pipeline that ingests
+Arsenal Wiki is a retrieval-augmented generation (RAG) pipeline that ingests
 **Wikipedia articles exclusively through the official MediaWiki Action API**,
 extracts **prose only** (no HTML tables, infoboxes, or scraping), splits the
 prose into section-aware chunks, embeds them with Ollama, and stores them in

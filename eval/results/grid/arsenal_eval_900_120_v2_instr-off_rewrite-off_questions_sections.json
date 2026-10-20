@@ -1,0 +1,98 @@
+{
+  "collection": "arsenal_eval_900_120_v2",
+  "chunks": 224,
+  "questions_file": "eval\\questions_sections.json",
+  "query_instruction": "off",
+  "query_rewrite": "off",
+  "query_rewrite_mode": "off",
+  "median_chunk_chars": 666.5,
+  "median_body_chars": 608.5,
+  "hit_at": [
+    1,
+    3,
+    5,
+    8
+  ],
+  "metrics": {
+    "hit@1": 0.875,
+    "hit@3": 0.875,
+    "hit@5": 1.0,
+    "hit@8": 1.0,
+    "mrr": 0.90625,
+    "keyword_mrr": 0.0
+  },
+  "questions": [
+    {
+      "id": 101,
+      "question": "describe the things that happen in the month of November",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 102,
+      "question": "give more details about november",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 103,
+      "question": "give a brief review of March",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 104,
+      "question": "what happened in October?",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 105,
+      "question": "summarise the summer transfer window",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 106,
+      "question": "what kits did Arsenal wear in 2025-26?",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 107,
+      "question": "what happened in December?",
+      "rank": 4,
+      "keyword_rank": null,
+      "part_ranks": [
+        4
+      ]
+    },
+    {
+      "id": 108,
+      "question": "what happened in January?",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    }
+  ]
+}

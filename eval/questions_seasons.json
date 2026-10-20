@@ -1,0 +1,25 @@
+{
+  "description": "Season-attribution questions. The 2025-26 page has a Background section that recaps the 2024-25 Champions League run (September 2024, third in the league phase in January 2025, 5-1 v Real Madrid, semi-final loss to PSG). These questions check that retrieval reaches the right section and, with --with-llm, that the answer keeps those facts in 2024-25.",
+  "questions": [
+    {
+      "id": 201,
+      "question": "give a poetic summary of Arsenal's journey to the Champions League final",
+      "expected_section": "Competitions > UEFA Champions League > Knockout phase > Final"
+    },
+    {
+      "id": 202,
+      "question": "how did Arsenal reach the 2026 Champions League final?",
+      "expected_section": "Competitions > UEFA Champions League > Knockout phase > Final"
+    },
+    {
+      "id": 203,
+      "question": "what happened in the 2024-25 Champions League semi-final?",
+      "expected_section": "Review > Background"
+    },
+    {
+      "id": 204,
+      "question": "who did Arsenal beat in the 2024-25 Champions League quarter-final?",
+      "expected_section": "Review > Background"
+    }
+  ]
+}

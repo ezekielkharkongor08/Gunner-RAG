@@ -1,0 +1,14 @@
+
+Q: who won the 2022 FIFA World Cup?
+
+The indexed pages do not contain the answer to who won the 2022 FIFA World Cup.
+
+Retrieved chunks (not used for the answer):
+  [1] List of Arsenal F.C. records and statistics | section: International | source: https://en.wikipedia.org/wiki/List_of_Arsenal_F.C._records_and_statistics | fetched: 2026-10-19T20:17:30.882194+00:00
+  [2] Arsenal F.C. | section: Introduction | source: https://en.wikipedia.org/wiki/Arsenal_F.C. | fetched: 2026-10-19T20:17:32.667554+00:00
+  [3] 2025ΓÇô26 Arsenal F.C. season | section: November | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+  [4] 2025ΓÇô26 Arsenal F.C. season | section: Quarter-final | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+  [5] Arsenal F.C. | section: 1996ΓÇô2018: Ars├¿ne Wenger revolution | source: https://en.wikipedia.org/wiki/Arsenal_F.C. | fetched: 2026-10-19T20:17:32.667554+00:00
+  [6] 2025ΓÇô26 Arsenal F.C. season | section: May | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+  [7] 2025ΓÇô26 Arsenal F.C. season | section: Semi-final | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00
+  [8] 2025ΓÇô26 Arsenal F.C. season | section: League phase | source: https://en.wikipedia.org/wiki/2025%E2%80%9326_Arsenal_F.C._season | fetched: 2026-10-19T20:17:31.781486+00:00

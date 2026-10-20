@@ -41,6 +41,7 @@ import requests
 from langchain_core.documents import Document
 
 from src.config import settings
+from src.ingestion.fetch_cache import load_cached, save_cached
 
 logger = logging.getLogger(__name__)
 
@@ -88,14 +89,15 @@ def _parse_sections(text: str) -> list[dict]:
     all_sections: list[dict] = []
     stack: list[dict] = []  # open sections, deepest last
     intro_paragraphs: list[str] = []
-    pending: list[str] = []  # lines of the paragraph currently being built
 
-    def flush_pending() -> None:
-        nonlocal pending
-        if not pending:
-            return
-        para = " ".join(line.strip() for line in pending if line.strip()).strip()
-        pending = []
+    def add_paragraph(raw_line: str) -> None:
+        """Add one explaintext line as a paragraph.
+
+        MediaWiki ``explaintext`` puts every paragraph on its own line and
+        does not wrap long paragraphs, so one non-empty line == one paragraph.
+        Lines are joined with "\\n\\n" later.
+        """
+        para = raw_line.strip()
         if not para:
             return
         target = stack[-1] if stack else None
@@ -108,7 +110,6 @@ def _parse_sections(text: str) -> list[dict]:
         line = raw_line.strip()
         match = _HEADING_RE.match(line)
         if match:
-            flush_pending()
             level = len(match.group(1))
             heading = match.group(2).strip()
             # Close sections at this level or deeper; shallower ancestors stay open.
@@ -119,10 +120,10 @@ def _parse_sections(text: str) -> list[dict]:
                        "paragraphs": []}
             stack.append(section)
             all_sections.append(section)
-        else:
-            pending.append(raw_line)
+            continue
 
-    flush_pending()
+        add_paragraph(raw_line)
+
     for section in all_sections:
         section["text"] = "\n\n".join(section["paragraphs"]).strip()
 
@@ -179,10 +180,19 @@ class WikipediaLoader:
     def fetch_article(self, title: str) -> dict:
         """Fetch one article's parsed prose extract and metadata.
 
+        When ``USE_FETCH_CACHE`` is true, a previously cached revision is
+        returned without a network call. ``REFRESH_FETCH_CACHE`` forces a
+        fresh fetch.
+
         Raises :class:`PageNotFoundError`, :class:`EmptyArticleError` or
         :class:`WikipediaAPIError` -- never returns an empty "success" result.
         Transient network/HTTP errors are retried with backoff.
         """
+        if settings.cache.enabled and not settings.cache.refresh:
+            cached = load_cached(title)
+            if cached is not None:
+                return cached
+
         params = {
             "action": "query",
             "prop": "extracts|info",
@@ -270,6 +280,10 @@ class WikipediaLoader:
             raise EmptyArticleError(
                 f"Wikipedia page {title!r} has no extractable prose"
             )
+        logger.debug(
+            "Extract for %r: %d newline(s), %d blank-line break(s).",
+            title, extract.count("\n"), extract.count("\n\n"),
+        )
 
         for redirect in data.get("redirects", []):
             logger.info(
@@ -277,14 +291,18 @@ class WikipediaLoader:
                 redirect.get("from"), redirect.get("to"),
             )
 
-        return {
+        article = {
             "title": page.get("title") or title,
             "url": page.get("canonicalurl") or page.get("fullurl") or "",
             "pageid": page.get("pageid"),
             "revision_id": page.get("lastrevid"),
             "language": settings.wikipedia.lang,
+            "fetched_at": _utc_now(),
             "extract": extract,
         }
+        if settings.cache.enabled:
+            save_cached(title, article)
+        return article
 
     def fetch_articles(self, titles: Sequence[str]) -> list[dict]:
         """Fetch several articles, deduplicating titles within the run.
@@ -332,7 +350,7 @@ class WikipediaLoader:
                             "content_type": "prose",
                             "pageid": article.get("pageid"),
                             "revision_id": article.get("revision_id"),
-                            "fetched_at": _utc_now(),
+                            "fetched_at": article.get("fetched_at") or _utc_now(),
                         },
                     )
                 )

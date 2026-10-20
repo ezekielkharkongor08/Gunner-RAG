@@ -1,0 +1,96 @@
+Collection: arsenal_eval_900_120
+Chunks: 222 | median chunk chars: 666 | median body chars: 608
+
+Pre-flight warnings:
+  ! Q11: keyword 'Adidas' is weak (6 chunks contain it).
+  ! Q14: keyword 'Thierry Henry' is weak (9 chunks contain it).
+  ! Q14: keyword 'Thierry Henry' is weak (9 chunks contain it).
+  ! Q17: keyword 'Wenger' is weak (8 chunks contain it).
+  ! Q19: keyword '1970û71' is weak (6 chunks contain it).
+
+Q1: what is arsenal season 2025-2026 and what did they achieved
+  primary rank: [None, None, None]
+   1. dist=0.4171 chars= 556 body= 505 | Introduction
+      2025û26 Arsenal F.C. season Section: Introduction  The 2025û26 season was Arsenal Football Club's 34th season in the Premier League, their 100th conse
+   2. dist=0.4590 chars= 515 body= 425 | Competitions > UEFA Champions League > League phase
+      2025û26 Arsenal F.C. season Section: Competitions > UEFA Champions League > League phase  Arsenal's UEFA club coefficient was 98.000 points at the end
+   3. dist=0.4935 chars= 457 body= 402 | Review > October
+      2025û26 Arsenal F.C. season Section: Review > October  Fifteen Arsenal players (excluding players who were loaned out) were named in their respective 
+   4. dist=0.4941 chars= 579 body= 528 | Review > May
+      2025û26 Arsenal F.C. season Section: Review > May  On the final day of the season, they secured a 2û1 away victory over Crystal Palace, after which ca
+   5. dist=0.4942 chars= 231 body= 175 | Review > November
+      2025û26 Arsenal F.C. season Section: Review > November  The 2û2 draw ended Arsenal's winning run and reduced their lead on 2nd-placed Manchester City 
+   6. dist=0.4995 chars= 234 body= 181 | Review > March
+      2025û26 Arsenal F.C. season Section: Review > March  Having completed a 3û1 aggregate defeat of Leverkusen, Arteta's men could now look forward to the
+   7. dist=0.5023 chars= 234 body= 179 | Review > January
+      2025û26 Arsenal F.C. season Section: Review > January  The hosts responded with a stunner from Eli Junior Kroupi, which set up a tense ending in which
+   8. dist=0.5036 chars= 404 body= 351 | Review > March
+      2025û26 Arsenal F.C. season Section: Review > March  Thirteen Arsenal players (excluding loaned out players) were named in their respective countries'
+
+Q4: How did Arsenal's 2025û26 Champions League campaign end?
+  primary rank: 2
+   1. dist=0.2377 chars= 747 body= 689 | Review > Background
+      2025û26 Arsenal F.C. season Section: Review > Background  It was the first time in 101 years since the 1923û24 season in which Arsenal did not have a 
+   2. dist=0.2488 chars= 703 body= 603 | Competitions > UEFA Champions League > Knockout phase > Final <-- expected
+      2025û26 Arsenal F.C. season Section: Competitions > UEFA Champions League > Knockout phase > Final  Having progressed past AtlΘtico Madrid in the semi
+   3. dist=0.2926 chars= 834 body= 783 | Review > May
+      2025û26 Arsenal F.C. season Section: Review > May  On 5 May, Arsenal hosted AtlΘtico Madrid in the second leg of their Champions League semi-final tie
+   4. dist=0.3067 chars= 556 body= 505 | Introduction
+      2025û26 Arsenal F.C. season Section: Introduction  The 2025û26 season was Arsenal Football Club's 34th season in the Premier League, their 100th conse
+   5. dist=0.3134 chars= 579 body= 528 | Review > May
+      2025û26 Arsenal F.C. season Section: Review > May  On the final day of the season, they secured a 2û1 away victory over Crystal Palace, after which ca
+   6. dist=0.3163 chars= 234 body= 181 | Review > March
+      2025û26 Arsenal F.C. season Section: Review > March  Having completed a 3û1 aggregate defeat of Leverkusen, Arteta's men could now look forward to the
+   7. dist=0.3267 chars= 729 body= 678 | Review > May
+      2025û26 Arsenal F.C. season Section: Review > May  On 30 May, Arsenal contested their second UEFA Champions League final against defending champions P
+   8. dist=0.3558 chars= 241 body= 185 | Review > December
+      2025û26 Arsenal F.C. season Section: Review > December  At 16 years and 103 days, Marli Salmon became the second-youngest Englishman in Champions Leag
+
+Q14: Who is Arsenal's record goalscorer?
+  primary rank: [3, 1]
+   1. dist=0.2611 chars= 447 body= 346 | Player records > Goalscorers > Top goalscorers <-- expected
+      List of Arsenal F.C. records and statistics Section: Player records > Goalscorers > Top goalscorers  Thierry Henry is the all-time top goalscorer for 
+   2. dist=0.2957 chars= 894 body= 848 | Statistics and records
+      Arsenal F.C. Section: Statistics and records  David O'Leary holds the record for Arsenal appearances, having played 722 first-team matches between 197
+   3. dist=0.3057 chars= 381 body= 314 | Introduction <-- expected
+      List of Arsenal F.C. records and statistics Section: Introduction  Arsenal have won 14 top-flight titles, and hold the record for the most FA Cup wins
+   4. dist=0.3831 chars= 709 body= 642 | Introduction
+      List of Arsenal F.C. records and statistics Section: Introduction  The list encompasses the honours won by Arsenal at national, regional, county and f
+   5. dist=0.3915 chars= 836 body= 753 | Player records > Goalscorers
+      List of Arsenal F.C. records and statistics Section: Player records > Goalscorers  Most goals in a season: Ted Drake, 44 goals (in the 1934û35 season)
+   6. dist=0.4118 chars= 654 body= 618 | Introduction
+      Arsenal F.C. Section: Introduction  The Arsenal Football Club, otherwise known as simply Arsenal, is a professional football club based in Islington, 
+   7. dist=0.4284 chars= 574 body= 528 | Statistics and records
+      Arsenal F.C. Section: Statistics and records  Arsenal have one of the best top-flight records in history, having finished below fourteenth only seven 
+   8. dist=0.4323 chars= 359 body= 302 | Statistics > Goals
+      2025û26 Arsenal F.C. season Section: Statistics > Goals  Arsenal scored 121 goals in all competitions during the season.  The following 20 players sco
+
+Per-question ranks (primary / keyword-only):
+  Q 1: None / None
+  Q 2:    1 /    1
+  Q 3:    1 /    1
+  Q 4:    2 /    2
+  Q 5:    1 /    1
+  Q 6:    2 /    2
+  Q 7:    1 /    1
+  Q 8:    4 /    4
+  Q 9:    4 /    4
+  Q10:    3 /    3
+  Q11:    1 /    1
+  Q12:    1 /    1
+  Q13:    1 /    1
+  Q14:    1 /    1
+  Q15:    1 /    1
+  Q16:    1 /    1
+  Q17:    1 /    1
+  Q18:    1 /    1
+  Q19:    3 /    1
+  Q20:    2 /    2
+  Q21: negative, not scored
+  Q22: negative, not scored
+
+Table:
+  collection | chunks | hit@1 | hit@3 | hit@5 | hit@8 | MRR | MRR(kw)
+  arsenal_eval_900_120 | 222 | 0.60 | 0.85 | 0.95 | 0.95 | 0.733 | 0.767
+
+Saved: E:\Arsenal_Weki\eval\results\arsenal_eval_900_120.json

@@ -6,7 +6,12 @@ import pytest
 
 from langchain_core.documents import Document
 
-from src.ingestion.index_builder import build_index, stable_chunk_id, REQUIRED_METADATA_FIELDS
+from src.ingestion.index_builder import (
+    PrefixedEmbeddings,
+    build_index,
+    stable_chunk_id,
+    REQUIRED_METADATA_FIELDS,
+)
 
 
 def _make_chunk(text="Some prose content.", **meta):
@@ -71,8 +76,79 @@ def test_stable_chunk_id_is_deterministic_and_text_sensitive():
     assert stable_chunk_id(chunk2) != id1
 
 
+def test_stable_chunk_id_is_scoped_to_collection():
+    chunk = _make_chunk()
+    assert stable_chunk_id(chunk, "arsenal_eval_a") != stable_chunk_id(
+        chunk, "arsenal_eval_b"
+    )
+
+
 def test_required_metadata_fields():
     assert "title" in REQUIRED_METADATA_FIELDS
     assert "url" in REQUIRED_METADATA_FIELDS
     assert "section" in REQUIRED_METADATA_FIELDS
     assert "content_type" in REQUIRED_METADATA_FIELDS
+
+
+# ---------------------------------------------------------------------------
+# 2.2 Qwen3 query instruction: queries only, documents untouched
+# ---------------------------------------------------------------------------
+class _FakeBaseEmbeddings:
+    """Stand-in for OllamaEmbeddings that records what it was asked to embed."""
+
+    def __init__(self):
+        self.documents: list[str] = []
+        self.queries: list[str] = []
+
+    def embed_documents(self, texts):
+        self.documents.extend(texts)
+        return [[0.0] for _ in texts]
+
+    def embed_query(self, text):
+        self.queries.append(text)
+        return [0.0]
+
+
+def test_query_instruction_is_applied_to_queries_only():
+    base = _FakeBaseEmbeddings()
+    embeddings = PrefixedEmbeddings(
+        base,
+        doc_prefix="",
+        query_prefix="",
+        query_instruction="Given a question about Arsenal F.C., retrieve passages",
+        query_instruction_enabled=True,
+    )
+
+    embeddings.embed_documents(["passage text"])
+    embeddings.embed_query("who won the league?")
+
+    assert base.documents == ["passage text"]
+    assert base.queries == [
+        "Instruct: Given a question about Arsenal F.C., retrieve passages\n"
+        "Query:who won the league?"
+    ]
+
+
+def test_query_instruction_off_leaves_the_query_plain():
+    base = _FakeBaseEmbeddings()
+    embeddings = PrefixedEmbeddings(
+        base,
+        doc_prefix="",
+        query_prefix="",
+        query_instruction="ignored",
+        query_instruction_enabled=False,
+    )
+
+    embeddings.embed_query("who won the league?")
+    assert base.queries == ["who won the league?"]
+
+
+def test_doc_prefix_still_applies_when_configured():
+    base = _FakeBaseEmbeddings()
+    embeddings = PrefixedEmbeddings(
+        base, doc_prefix="search_document: ", query_prefix="search_query: ",
+    )
+    embeddings.embed_documents(["d"])
+    embeddings.embed_query("q")
+    assert base.documents == ["search_document: d"]
+    assert base.queries == ["search_query: q"]

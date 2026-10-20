@@ -1,0 +1,62 @@
+{
+  "collection": "arsenal_documents",
+  "chunks": 224,
+  "questions_file": "eval\\questions_seasons.json",
+  "query_instruction": "off",
+  "query_rewrite": "off",
+  "query_rewrite_mode": "off",
+  "median_chunk_chars": 666.5,
+  "median_body_chars": 608.5,
+  "hit_at": [
+    1,
+    3,
+    5,
+    8
+  ],
+  "metrics": {
+    "hit@1": 1.0,
+    "hit@3": 1.0,
+    "hit@5": 1.0,
+    "hit@8": 1.0,
+    "mrr": 1.0,
+    "keyword_mrr": 0.0
+  },
+  "questions": [
+    {
+      "id": 201,
+      "question": "give a poetic summary of Arsenal's journey to the Champions League final",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 202,
+      "question": "how did Arsenal reach the 2026 Champions League final?",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 203,
+      "question": "what happened in the 2024-25 Champions League semi-final?",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    },
+    {
+      "id": 204,
+      "question": "who did Arsenal beat in the 2024-25 Champions League quarter-final?",
+      "rank": 1,
+      "keyword_rank": null,
+      "part_ranks": [
+        1
+      ]
+    }
+  ]
+}

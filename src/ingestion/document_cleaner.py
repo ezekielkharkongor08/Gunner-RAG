@@ -52,12 +52,30 @@ SEPARATOR_LINE = re.compile(r"^[=\-#*~_]{3,}\s*$", re.MULTILINE)
 WHITESPACE_RUNS = re.compile(r"[ \t]{2,}")
 TRAILING_SPACES = re.compile(r" *\n")
 MULTI_BLANK = re.compile(r"\n{3,}")
+# Legend marks: "Wenger†", "Player*" (only a "*" right after a letter).
+DAGGER = re.compile(r"[†‡]")
+LEGEND_ASTERISK = re.compile(r"(?<=[A-Za-z])\*(?=\s|$)")
 
 # Files shorter than this after cleaning are considered empty and dropped.
 MIN_CONTENT_LENGTH = int(get_env("CLEAN_MIN_LENGTH", "25"))
 
 # Junk section headings (case-insensitive), from config/settings.yaml.
 JUNK_SECTIONS = {s.strip().lower() for s in settings.junk_sections if s.strip()}
+
+
+def _is_junk(section: str, section_path: str) -> bool:
+    """True when the heading or any parent in ``section_path`` is junk.
+
+    Checking the whole path catches sub-sections such as
+    ``External links > Independent websites``.
+    """
+    if section.strip().lower() in JUNK_SECTIONS:
+        return True
+    return any(
+        part.strip().lower() in JUNK_SECTIONS
+        for part in section_path.split(">")
+        if part.strip()
+    )
 
 
 def clean_text(text: str) -> str:
@@ -76,6 +94,11 @@ def clean_text(text: str) -> str:
     # Citation markers and footnotes (citation-shaped brackets only).
     text = CITATION.sub("", text)
     text = FOOTNOTE.sub("", text)
+
+    # Legend marks: daggers and a "*" glued to a word (e.g. "Player*").
+    # Dashes are left untouched.
+    text = DAGGER.sub("", text)
+    text = LEGEND_ASTERISK.sub("", text)
 
     # Residual template markup and HTML tags.
     text = TEMPLATE.sub("", text)
@@ -124,10 +147,11 @@ def clean_documents(documents: list[Document]) -> list[Document]:
         result = clean_document(document)
 
         section = str(result.metadata.get("section", "")).strip().lower()
-        if section in JUNK_SECTIONS:
+        section_path = str(result.metadata.get("section_path", ""))
+        if _is_junk(section, section_path):
             logger.info(
                 "Dropping junk section: %s (%s)",
-                result.metadata.get("title"), section,
+                result.metadata.get("title"), section_path or section,
             )
             continue
 

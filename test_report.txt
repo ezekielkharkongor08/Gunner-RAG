@@ -1,0 +1,15 @@
+Quality checks: arsenal_documents
+
+[PASS] collection is not empty  (224 chunks)
+[PASS] no body < CHUNK_MIN_SIZE (150)  (shortest 166)
+[PASS] no chunk starts with '.'  (0 offender(s))
+[PASS] every chunk starts with title + section header  (0 bad header(s))
+[PASS] no junk sections  (0 junk path(s))
+[PASS] no boilerplate caption sections  (0 offender(s))
+[PASS] Kits merged into Kit information  (kits_leaf=[]; kit_chunks=3)
+[PASS] Kent County FA not a standalone section  (kent_leaf=[]; london_chunks=1)
+[PASS] paragraph breaks survived (\n\n)  (49/224 chunks contain \n\n)
+[PASS] all new metadata fields present  (0 chunk(s) missing fields)
+[PASS] chunk ids are unique  (0 duplicate(s))
+[PASS] header_chars > 0 and chunk_chars matches text
+[PASS] chunk count is reported  (224 chunks; median body 608)

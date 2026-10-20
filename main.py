@@ -13,7 +13,11 @@ import sys
 from typing import Optional
 
 from src.config import ConfigError, settings
-from src.generation.answer_chain import answer_question, summarize_article
+from src.generation.answer_chain import (
+    answer_question,
+    format_sources,
+    summarize_article,
+)
 
 
 def check_database() -> str:
@@ -71,14 +75,16 @@ def check_index() -> str:
         return f"FAIL ({type(exc).__name__}: {exc})"
 
 
-def chat_once(question: str, history: Optional[list[str]] = None) -> None:
+def chat_once(
+    question: str,
+    history: Optional[list[tuple[str, str]]] = None,
+) -> None:
     """Ask a single question and print the answer with citations."""
     result = answer_question(question, history=history)
     print(f"\nAnswer:\n{result.answer}")
     if result.sources:
         print("\nSources:")
-        for i, src in enumerate(result.sources, 1):
-            print(f"  [{i}] {src.citation()}")
+        print(format_sources(result.sources))
     else:
         print("\nNo sources found.")
 
@@ -89,9 +95,8 @@ def summarize_once(title: str) -> None:
     print(f"\nArticle: {title}")
     print(f"\nSummary:\n{result.answer}")
     if result.sources:
-        print(f"\nSources ({len(result.sources)} chunk(s)):")
-        for i, src in enumerate(result.sources, 1):
-            print(f"  [{i}] {src.citation()}")
+        print("\nSources:")
+        print(format_sources(result.sources))
     else:
         print("\nNo sources found.")
 
@@ -103,7 +108,7 @@ def chat_loop() -> None:
     print("Tip: make sure you've run ingestion first "
           "(python src/ingestion/run_ingestion.py).\n")
 
-    history: list[str] = []
+    history: list[tuple[str, str]] = []
 
     while True:
         try:
@@ -123,14 +128,14 @@ def chat_loop() -> None:
             print(f"\nAssistant: {result.answer}")
             if result.sources:
                 print("Sources:")
-                for i, src in enumerate(result.sources, 1):
-                    print(f"  [{i}] {src.citation()}")
+                print(format_sources(result.sources))
             print()
 
-            # Keep history for follow-up pronoun resolution.
-            history.append(question)
-            if len(history) > 10:
-                history = history[-10:]
+            # Keep (question, answer) pairs so follow-ups resolve: the answer
+            # tells the model what "they" or "that" was about.
+            history.append((question, result.answer))
+            if len(history) > settings.chat_history_turns:
+                history = history[-settings.chat_history_turns:]
 
         except Exception as exc:  # noqa: BLE001 - keep the loop alive
             print(f"\nAssistant: Sorry, I ran into an error: {exc}\n")
