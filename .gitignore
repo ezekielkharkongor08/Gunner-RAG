@@ -11,3 +11,10 @@ wheels/
 
 # Local secrets -- never commit
 .env
+data/
+
+
+explanation.md
+test_report.txt
+.gitignore
+

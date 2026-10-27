@@ -8,7 +8,15 @@ pages:
   - "List of Arsenal F.C. records and statistics"
   - "2025–26 Arsenal F.C. season"
   - "Arsenal F.C."
-
+  - "Arsenal F.C. supporters"
+  - "North London derby"
+  - "Arsenal Training Centre"
+  - "Arsenal Stadium"
+  - "Emirates Stadium" 
+  - "History of Arsenal F.C. (1966–present)"
+  - "Arsenal F.C. in European football"
+  - "List of Arsenal F.C. seasons"
+  - "List of Arsenal F.C. managers"
 # The season the assistant treats as current when a question does not name one.
 # Used by the answer prompt: Background sections recap the previous season, and
 # results from it must stay labelled with their own year.
@@ -18,7 +26,7 @@ current_season: "2025–26"
 # short  = a few sentences (the old behaviour).
 # normal = one or two short paragraphs, about 4-6 sentences.
 # long   = up to three paragraphs, about 8-10 sentences.
-answer_style: normal
+answer_style: long 
 
 # Section names that questions may target directly, e.g. "describe November"
 # or "what happened in the summer transfer window". Matching is exact on the

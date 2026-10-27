@@ -1,5 +1,5 @@
 [project]
-name = "arsenal-weki"
+name = "arsenal-wiki"
 version = "0.1.0"
 description = "RAG over Arsenal F.C. Wikipedia content with LangChain, Ollama and pgvector"
 readme = "README.md"

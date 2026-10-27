@@ -169,7 +169,7 @@ class OllamaSettings:
     num_ctx: int = 8192
     # Temperature for answer generation (ANSWER_TEMPERATURE); rewriting has
     # its own temperature in RetrievalSettings.
-    answer_temperature: float = 0.1
+    answer_temperature: float = 0.2
 
 
 @dataclass(frozen=True)
