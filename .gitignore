@@ -8,13 +8,15 @@ wheels/
 
 # Virtual environments
 .venv/
+.gitignore
 
 # Local secrets -- never commit
 .env
 data/
+eval/
 
 
 explanation.md
 test_report.txt
-.gitignore
-
+structure.md
+.streamlit/

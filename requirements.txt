@@ -18,3 +18,8 @@ sqlalchemy
 # --- Config / helpers ---
 python-dotenv               
 pyyaml                   
+
+# --- Web Backend & UI ---
+fastapi
+uvicorn[standard]
+streamlit
