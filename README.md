@@ -142,7 +142,7 @@ python src/ingestion/run_ingestion.py --no-reset
 ### 6. Ask
 
 ```powershell
-python ask.py "Who did Arsenal lose to in the 2025-26 EFL Cup final?"
+python ask.py "Who did Arsenal play to in the 2025-26 EFL Cup final?"
 python ask.py --check "what was Arsenal's average possession?"
 ```
 
@@ -270,14 +270,6 @@ Arsenal_Weki/
 ├── data/cache/                  cached Wikipedia extracts
 └── tests/                       offline test suite and quality checks
 ```
-
----
-
-## Documentation
-
-- **`explanation.md`** — what every file and function does, what goes in and
-  what comes out, key features, settings reference, phase history, measured
-  results and known limits.
 
 ---
 
